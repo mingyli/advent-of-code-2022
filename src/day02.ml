@@ -42,8 +42,7 @@ module A = struct
     let select = Hand.score me in
     select + Outcome.score outcome
 
-  let solve () =
-    let lines = In_channel.(input_lines stdin) in
+  let solve lines =
     List.map lines ~f:(fun line ->
         match String.split line ~on:' ' with
         | [ opponent; me ] ->
@@ -53,6 +52,11 @@ module A = struct
             score
         | _ -> assert false)
     |> List.sum (module Int) ~f:Fn.id
+
+  let%expect_test _ =
+    let lines = [ "A Y"; "B X"; "C Z" ] in
+    print_s [%sexp (solve lines : int)];
+    [%expect {| 15 |}]
 end
 
 module B = struct
@@ -74,24 +78,29 @@ module B = struct
     let select = Hand.score me in
     select + Outcome.score outcome
 
-  let solve () =
-    let lines = In_channel.(input_lines stdin) in
+  let solve lines =
     List.map lines ~f:(fun line ->
         match String.split line ~on:' ' with
         | [ opponent; outcome ] ->
             let opponent = Hand.of_opponent opponent in
             let outcome = Outcome.of_string outcome in
-            let score = score opponent outcome in
-            score
+            (opponent, outcome)
         | _ -> assert false)
+    |> List.map ~f:(fun (opponent, outcome) -> score opponent outcome)
     |> List.sum (module Int) ~f:Fn.id
+
+  let%expect_test _ =
+    let lines = [ "A Y"; "B X"; "C Z" ] in
+    print_s [%sexp (solve lines : int)];
+    [%expect {| 12 |}]
 end
 
 let run (which : Which.t) =
+  let lines = In_channel.(input_lines stdin) in
   match which with
   | A ->
-      let answer = A.solve () in
-      print_endline [%string "%{answer#Int}"]
+      let answer = A.solve lines in
+      print_s [%sexp (answer : int)]
   | B ->
-      let i = B.solve () in
-      print_endline [%string "%{i#Int}"]
+      let answer = B.solve lines in
+      print_s [%sexp (answer : int)]
