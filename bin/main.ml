@@ -2,7 +2,8 @@ open Core
 open Src
 
 let command =
-  Command.basic ~summary:"Advent of Code 2022"
+  Command.basic
+    ~summary:"Advent of Code 2022"
     (let%map_open.Command () = return ()
      and day = anon ("day" %: int)
      and which = anon ("which" %: Which.arg_type) in
@@ -15,5 +16,6 @@ let command =
          | _ -> assert false
        in
        run which)
+;;
 
 let () = Command.run command
