@@ -13,6 +13,7 @@ let command =
          | 1 -> Day01.run
          | 2 -> Day02.run
          | 3 -> Day03.run
+         | 4 -> Day04.run
          | _ -> assert false
        in
        run which)
