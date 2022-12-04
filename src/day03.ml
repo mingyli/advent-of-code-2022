@@ -21,13 +21,13 @@ module A = struct
 
   let%expect_test _ =
     let inp =
-      [ "vJrwpWtwJgWrhcsFMMfFFhFp"
-      ; "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL"
-      ; "PmmdzqPrVvPwwTWBwg"
-      ; "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn"
-      ; "ttgJtRGJQctTZtZT"
-      ; "CrZsJsPPZsGzwwsLwLmpwMDw"
-      ]
+      String.split_lines
+        {|vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw|}
     in
     print_s [%sexp (solve inp : int)];
     [%expect {|
@@ -55,13 +55,13 @@ module B = struct
 
   let%expect_test _ =
     let inp =
-      [ "vJrwpWtwJgWrhcsFMMfFFhFp"
-      ; "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL"
-      ; "PmmdzqPrVvPwwTWBwg"
-      ; "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn"
-      ; "ttgJtRGJQctTZtZT"
-      ; "CrZsJsPPZsGzwwsLwLmpwMDw"
-      ]
+      String.split_lines
+        {|vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw|}
     in
     print_s [%sexp (solve inp : int)];
     [%expect {|

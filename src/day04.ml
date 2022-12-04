@@ -32,7 +32,12 @@ module A = struct
   ;;
 
   let%expect_test _ =
-    let lines = [ "2-4,6-8"; "2-3,4-5"; "5-7,7-9"; "2-8,3-7"; "6-6,4-6"; "2-6,4-8" ] in
+    let lines = String.split_lines {|2-4,6-8
+2-3,4-5
+5-7,7-9
+2-8,3-7
+6-6,4-6
+2-6,4-8|} in
     print_s [%sexp (solve lines : int)];
     [%expect {| 2 |}]
   ;;
@@ -51,7 +56,12 @@ module B = struct
   ;;
 
   let%expect_test _ =
-    let lines = [ "2-4,6-8"; "2-3,4-5"; "5-7,7-9"; "2-8,3-7"; "6-6,4-6"; "2-6,4-8" ] in
+    let lines = String.split_lines {|2-4,6-8
+2-3,4-5
+5-7,7-9
+2-8,3-7
+6-6,4-6
+2-6,4-8|} in
     print_s [%sexp (solve lines : int)];
     [%expect {| 4 |}]
   ;;
