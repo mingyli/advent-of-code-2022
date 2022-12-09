@@ -63,13 +63,13 @@ module B = struct
   ;;
 end
 
-let run (which : Which.t) =
+let run which =
   let line = In_channel.(input_line_exn stdin) in
-  match which with
-  | A ->
-    let answer = A.solve line in
-    print_s [%sexp (answer : int)]
-  | B ->
-    let answer = B.solve line in
-    print_s [%sexp (answer : int)]
+  let solve =
+    match which with
+    | `A -> A.solve
+    | `B -> B.solve
+  in
+  let answer = solve line in
+  print_s [%sexp (answer : int)]
 ;;

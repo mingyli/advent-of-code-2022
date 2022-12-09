@@ -26,16 +26,16 @@ let read_elves () =
   |> List.filter_opt
 ;;
 
-let run (which : Which.t) =
+let run which =
   let elves = read_elves () in
   let total_calories =
     List.map elves ~f:Elf.total_calores |> List.sort ~compare:Int.descending
   in
   match which with
-  | A ->
+  | `A ->
     let answer = List.max_elt total_calories ~compare:Int.compare |> Option.value_exn in
     print_s [%sexp (answer : int)]
-  | B ->
+  | `B ->
     let top_three =
       let total_calories = List.sort total_calories ~compare:Int.descending in
       List.take total_calories 3

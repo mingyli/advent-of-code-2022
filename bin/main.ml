@@ -10,15 +10,15 @@ let command =
      fun () ->
        let run =
          match day with
-         | 1 -> Day01.run
-         | 2 -> Day02.run
-         | 3 -> Day03.run
-         | 4 -> Day04.run
-         | 5 -> Day05.run
-         | 6 -> Day06.run
-         | 7 -> Day07.run
-         | 8 -> Day08.run
-         | 9 -> Day09.run
+         | 1 -> Day1.run
+         | 2 -> Day2.run
+         | 3 -> Day3.run
+         | 4 -> Day4.run
+         | 5 -> Day5.run
+         | 6 -> Day6.run
+         | 7 -> Day7.run
+         | 8 -> Day8.run
+         | 9 -> Day9.run
          | _ -> assert false
        in
        run which)

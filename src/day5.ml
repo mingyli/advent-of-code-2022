@@ -115,13 +115,13 @@ move 1 from 1 to 2|}
   ;;
 end
 
-let run (which : Which.t) =
+let run which =
   let lines = In_channel.(input_lines stdin) in
-  match which with
-  | A ->
-    let answer = A.solve boxes lines in
-    print_s [%sexp (answer : string)]
-  | B ->
-    let answer = B.solve boxes lines in
-    print_s [%sexp (answer : string)]
+  let solve =
+    match which with
+    | `A -> A.solve
+    | `B -> B.solve
+  in
+  let answer = solve boxes lines in
+  print_s [%sexp (answer : string)]
 ;;
