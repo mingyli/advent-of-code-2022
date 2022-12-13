@@ -86,6 +86,12 @@ R 2|} |> String.split_lines in
     print_s [%sexp (solve lines : int)];
     [%expect {| 13 |}]
   ;;
+
+  let%expect_test _ =
+    let input = In_channel.read_all "../input/input9.txt" |> String.split_lines in
+    print_s [%sexp (solve input : int)];
+    [%expect {| 6243 |}]
+  ;;
 end
 
 module B = struct
@@ -102,6 +108,12 @@ L 25
 U 20|} |> String.split_lines in
     print_s [%sexp (solve lines : int)];
     [%expect {| 36 |}]
+  ;;
+
+  let%expect_test _ =
+    let input = In_channel.read_all "../input/input9.txt" |> String.split_lines in
+    print_s [%sexp (solve input : int)];
+    [%expect {| 2630 |}]
   ;;
 end
 
