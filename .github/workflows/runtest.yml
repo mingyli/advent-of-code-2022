@@ -1,0 +1,20 @@
+name: runtest
+on: [push]
+jobs:
+  generate-events:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ocaml/setup-ocaml@v2
+        with: 
+          ocaml-compiler: 4.10.2
+      - id: install
+        run: opam install .
+      - id: init
+        run: eval $(opam config env)
+      - id: build
+        run: opam exec -- dune build
+      - id: check-repo-is-clean
+        run: git diff --exit-code
+      - id: test
+        run: opam exec -- dune runtest
