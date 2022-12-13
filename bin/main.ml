@@ -1,6 +1,18 @@
 open Core
 open Src
 
+module Which = struct
+  type t =
+    [ `A
+    | `B
+    ]
+  [@@deriving enumerate, sexp]
+
+  let arg_type : t Command.Arg_type.t =
+    Command.Arg_type.of_alist_exn [ "a", `A; "A", `A; "b", `B; "B", `B ]
+  ;;
+end
+
 let command =
   Command.basic
     ~summary:"Advent of Code 2022"
@@ -21,6 +33,7 @@ let command =
          | 9 -> Day9.run
          | 10 -> Day10.run
          | 11 -> Day11.run
+         | 12 -> Day12.run
          | _ -> assert false
        in
        run which)
