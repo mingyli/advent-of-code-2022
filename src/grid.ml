@@ -1,18 +1,19 @@
 open Core
 
-module type Grid2 = sig
+module type S2 = sig
   type item [@@deriving sexp]
   type t = item array array [@@deriving sexp]
 
   val width : t -> int
   val height : t -> int
-  val contains : t -> Pos2.t -> bool
-  val get_exn : t -> Pos2.t -> item
+  val contains : t -> Vec2.t -> bool
+  val get_exn : t -> Vec2.t -> item
+  val set_exn : t -> Vec2.t -> item -> unit
 end
 
 module Make2 (Item : sig
   type t [@@deriving sexp]
-end) : Grid2 with type item = Item.t = struct
+end) : S2 with type item = Item.t = struct
   type item = Item.t [@@deriving sexp]
   type t = item array array [@@deriving sexp]
 
@@ -26,4 +27,5 @@ end) : Grid2 with type item = Item.t = struct
   ;;
 
   let get_exn t (r, c) = t.(r).(c)
+  let set_exn t (r, c) item = t.(r).(c) <- item
 end

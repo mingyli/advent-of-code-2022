@@ -1,6 +1,6 @@
 (library
  (name src)
- (libraries core)
+ (libraries core str)
  (inline_tests
   (deps
    (glob_files ../input/*)))

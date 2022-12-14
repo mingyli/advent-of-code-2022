@@ -35,11 +35,11 @@ module Input = struct
 end
 
 module Pos = struct
-  include Pos2
+  include Vec2
 
   let neighbors =
     let dirs = [ -1, 0; 1, 0; 0, -1; 0, 1 ] in
-    fun (r, c) -> List.map dirs ~f:(fun (dr, dc) -> r + dr, c + dc)
+    fun (r, c) -> List.map dirs ~f:(fun d -> (r, c) + d)
   ;;
 end
 
