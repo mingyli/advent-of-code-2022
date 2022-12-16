@@ -168,8 +168,7 @@ module A = struct
   let%expect_test _ =
     let input = In_channel.read_all "../input/input14.txt" |> Input.of_string in
     print_s [%sexp (solve input : int)];
-    [%expect {|
-    892 |}]
+    [%expect {| 892 |}]
   ;;
 end
 
