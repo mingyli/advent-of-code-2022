@@ -208,11 +208,11 @@ Valve JJ has flow rate=21; tunnel leads to valve II|}
     [%expect {| 1707 |}]
   ;;
 
-  let%expect_test _ =
+  (* let%expect_test _ =
     let input = In_channel.read_all "../input/input16.txt" |> Input.of_string in
     print_s [%sexp (solve input : int)];
     [%expect {| 2292 |}]
-  ;;
+  ;; *)
 end
 
 let run which =
