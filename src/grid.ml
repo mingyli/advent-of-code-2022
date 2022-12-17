@@ -8,7 +8,9 @@ module type S2 = sig
   val height : t -> int
   val contains : t -> Vec2.t -> bool
   val get_exn : t -> Vec2.t -> item
+  val get_exn' : t -> int -> int -> item
   val set_exn : t -> Vec2.t -> item -> unit
+  val set_exn' : t -> int -> int -> item -> unit
 end
 
 module Make2 (Item : sig
@@ -27,5 +29,7 @@ end) : S2 with type item = Item.t = struct
   ;;
 
   let get_exn t (r, c) = t.(r).(c)
+  let get_exn' t r c = t.(r).(c)
   let set_exn t (r, c) item = t.(r).(c) <- item
+  let set_exn' t r c item = t.(r).(c) <- item
 end
