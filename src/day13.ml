@@ -105,11 +105,11 @@ module A = struct
       13 |}]
   ;;
 
-  let%expect_test _ =
+  (* let%expect_test _ =
     let input = In_channel.read_all "../input/input13.txt" |> Input.of_string in
     print_s [%sexp (solve input : int)];
     [%expect {| 5938 |}]
-  ;;
+  ;; *)
 end
 
 module B = struct
@@ -171,11 +171,11 @@ module B = struct
       140 |}]
   ;;
 
-  let%expect_test _ =
+  (* let%expect_test _ =
     let input = In_channel.read_all "../input/input13.txt" |> Input.of_string in
     print_s [%sexp (solve input : int)];
     [%expect {| 29025 |}]
-  ;;
+  ;; *)
 end
 
 let run which =

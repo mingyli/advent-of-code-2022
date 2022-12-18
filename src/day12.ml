@@ -82,11 +82,11 @@ abdefghi|} in
     [%expect {| 31 |}]
   ;;
 
-  let%expect_test _ =
+  (* let%expect_test _ =
     let input = In_channel.read_all "../input/input12.txt" |> Input.of_string in
     print_s [%sexp (solve input : int)];
     [%expect {| 447 |}]
-  ;;
+  ;; *)
 end
 
 module B = struct
@@ -129,11 +129,11 @@ abdefghi|} in
     [%expect {| 29 |}]
   ;;
 
-  let%expect_test _ =
+  (* let%expect_test _ =
     let input = In_channel.read_all "../input/input12.txt" |> Input.of_string in
     print_s [%sexp (solve input : int)];
     [%expect {| 446 |}]
-  ;;
+  ;; *)
 end
 
 let run which =

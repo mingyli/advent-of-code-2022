@@ -140,11 +140,11 @@ Sensor at x=20, y=1: closest beacon is at x=15, y=3|}
     [%expect {| (14 11) |}]
   ;;
 
-  let%expect_test _ =
+  (* let%expect_test _ =
     let input = In_channel.read_all "../input/input15.txt" |> Input.of_string in
     print_s [%sexp (solve input ~bound:4_000_000 : int * int)];
     [%expect {| (3337614 2933732) |}]
-  ;;
+  ;; *)
 end
 
 let run which =

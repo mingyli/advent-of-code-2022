@@ -144,7 +144,7 @@ let%expect_test _ =
   [%expect {| 3068 |}]
 ;;
 
-let%expect_test _ =
+(* let%expect_test _ =
   let input =
     In_channel.read_all "../input/input17.txt" |> String.strip |> Input.of_string
   in
@@ -195,4 +195,4 @@ let%expect_test _ =
        (cycle_length 1745) (cycle_height 2753) (completed_cycles 573065902)
        (remainder 1010))
       3063 |}]
-;;
+;; *)
