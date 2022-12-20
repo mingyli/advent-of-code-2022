@@ -86,20 +86,22 @@ module B = struct
     let ys = Set.map (module Int) input ~f:(fun (_, y, _) -> y) in
     let zs = Set.map (module Int) input ~f:(fun (_, _, z) -> z) in
     print_s [%message (xs : Int.Set.t) (ys : Int.Set.t) (zs : Int.Set.t)];
-    let count = ref 0 in
     let rec dfs curr =
       if Hash_set.mem visited curr
-      then ()
+      then 0
       else if out_of_bounds curr
-      then Hash_set.add visited curr
+      then (
+        Hash_set.add visited curr;
+        0)
       else (
         Hash_set.add visited curr;
         let neighbors = neighbors curr in
-        List.iter neighbors ~f:(fun neighbor ->
-          if Set.mem input neighbor then incr count else dfs neighbor))
+        List.sum
+          (module Int)
+          neighbors
+          ~f:(fun neighbor -> if Set.mem input neighbor then 1 else dfs neighbor))
     in
-    dfs (1, 1, 1);
-    !count
+    dfs (1, 1, 1)
   ;;
 
   let%expect_test _ =
