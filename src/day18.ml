@@ -127,7 +127,7 @@ module B = struct
     58 |}]
   ;;
 
-  (* let%expect_test _ =
+  let%expect_test _ =
     let input = In_channel.read_all "../input/input18.txt" |> Input.of_string in
     print_s [%sexp (solve input : int)];
     [%expect
@@ -136,5 +136,5 @@ module B = struct
      (ys (1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19))
      (zs (0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)))
     2118 |}]
-  ;; *)
+  ;;
 end

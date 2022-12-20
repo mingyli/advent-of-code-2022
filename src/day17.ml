@@ -138,11 +138,11 @@ let solve (input : Input.t) ~num_rocks ~print_cycle =
   !height
 ;;
 
-let%expect_test _ =
+(* let%expect_test _ =
   let input = Input.of_string {|>>><<><>><<<>><>>><<<>>><<<><<<>><>><<>>|} in
   print_s [%sexp (solve input ~num_rocks:2022 ~print_cycle:false : int)];
   [%expect {| 3068 |}]
-;;
+;; *)
 
 (* let%expect_test _ =
   let input =

@@ -160,7 +160,7 @@ let solve (input : Input.t) ~mins =
   |> List.sum (module Int) ~f:Fn.id
 ;;
 
-let%expect_test _ =
+(* let%expect_test _ =
   let input =
     Input.of_string
       {|Blueprint 1: Each ore robot costs 4 ore. Each clay robot costs 2 ore. Each obsidian robot costs 3 ore and 14 clay. Each geode robot costs 2 ore and 7 obsidian.
@@ -171,7 +171,7 @@ Blueprint 2: Each ore robot costs 2 ore. Each clay robot costs 3 ore. Each obsid
     (geodes 9)
     (geodes 12)
     33 |}]
-;;
+;; *)
 
 let run which =
   ignore which;
