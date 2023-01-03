@@ -96,36 +96,42 @@ module Input = struct
   ;;
 end
 
-let step board pos facing =
+let step ~which board pos facing =
   let height = Grid.height board in
   let width = Grid.width board in
-  let add pos facing =
-    let r, c = Vec2.(pos + facing) in
-    let r = (r + height) mod height in
-    let c = (c + width) mod width in
-    r, c
+  let next_pos, next_facing =
+    match which with
+    | `A ->
+      let add pos facing =
+        let r, c = Vec2.(pos + facing) in
+        let r = (r + height) mod height in
+        let c = (c + width) mod width in
+        r, c
+      in
+      let hypothetical = add pos facing in
+      (match Grid.get_exn board hypothetical with
+       | '.' -> hypothetical, facing
+       | '#' -> pos, facing
+       | ' ' ->
+         (* Wrap. *)
+         let hypothetical =
+           let curr = ref hypothetical in
+           while Char.(Grid.get_exn board !curr = ' ') do
+             curr := add !curr facing
+           done;
+           !curr
+         in
+         (match Grid.get_exn board hypothetical with
+          | '.' -> hypothetical, facing
+          | '#' -> pos, facing
+          | _ -> assert false)
+       | _ -> assert false)
+    | `B -> assert false
   in
-  let hypothetical = add pos facing in
-  match Grid.get_exn board hypothetical with
-  | '.' -> hypothetical
-  | '#' -> pos
-  | ' ' ->
-    (* Wrap. *)
-    let hypothetical =
-      let curr = ref hypothetical in
-      while Char.(Grid.get_exn board !curr = ' ') do
-        curr := add !curr facing
-      done;
-      !curr
-    in
-    (match Grid.get_exn board hypothetical with
-     | '.' -> hypothetical
-     | '#' -> pos
-     | _ -> assert false)
-  | _ -> assert false
+  next_pos, next_facing
 ;;
 
-let solve (input : Input.t) =
+let solve ~which (input : Input.t) =
   (* print_s [%sexp (input : Input.t)]; *)
   (* Grid.print input.board;
   print_s [%sexp (input.path : Path.t)]; *)
@@ -142,15 +148,13 @@ let solve (input : Input.t) =
         let facing = turn facing clock in
         Yield ((pos, facing), (pos, facing))
       | Walk walk ->
-        let pos =
-          Sequence.unfold_step ~init:(pos, 0) ~f:(fun (pos, steps) ->
+        let pos, facing =
+          Sequence.unfold_step ~init:(pos, facing, 0) ~f:(fun (pos, facing, steps) ->
             if steps = walk
-            then Yield (pos, (pos, steps))
+            then Yield ((pos, facing), (pos, facing, steps))
             else (
-              let hypothetical = step input.board pos facing in
-              if Grid.in_bounds input.board hypothetical
-              then Skip (hypothetical, steps + 1)
-              else Yield (pos, (pos, steps))))
+              let hypothetical, facing = step ~which input.board pos facing in
+              Skip (hypothetical, facing, steps + 1)))
           |> Sequence.hd_exn
         in
         Yield ((pos, facing), (pos, facing)))
@@ -175,25 +179,22 @@ let solve (input : Input.t) =
 ;;
 
 let run which =
-  ignore which;
   let input = Input.of_string In_channel.(input_all stdin) in
-  print_s [%sexp (solve input : int)]
+  print_s [%sexp (solve ~which input : int)]
 ;;
 
 let%expect_test _ =
   let input = In_channel.read_all "../input/input22-small.txt" |> Input.of_string in
-  print_s [%sexp (solve input : int)];
-  [%expect
-    {|
+  print_s [%sexp (solve ~which:`A input : int)];
+  [%expect {|
     ((pos (5 7)) (password 6032))
     6032 |}]
 ;;
 
 let%expect_test _ =
   let input = In_channel.read_all "../input/input22.txt" |> Input.of_string in
-  print_s [%sexp (solve input : int)];
-  [%expect
-    {|
+  print_s [%sexp (solve ~which:`A input : int)];
+  [%expect {|
     ((pos (19 122)) (password 20494))
     20494 |}]
 ;;
